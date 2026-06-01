@@ -143,3 +143,30 @@ ul li.checked {
 ul li.checked::before {
     background-image: url(../images/checkedToDoList.png);
 }
+
+/* Style for the delete button (span) inside each list item */
+ul li span {
+    position: absolute; /* positions the span relative to the li */
+    right: 0; /* places it on the right side */
+    top: 5px; /* slightly down from the top */
+
+    width: 40px;
+    height: 40px;   
+
+    border-radius: 50%; /* makes the span circular (like a button) */
+
+    color: #555; /* default icon color (grey) */
+    font-size: 22px; /* size of the "×" icon */
+
+    line-height: 40px; /* vertically centers the icon */
+    text-align: center; /* horizontally centers the icon */
+
+    cursor: pointer; /* changes cursor to pointer on hover */
+}
+
+/* Hover effect for the delete button */
+ul li span:hover {
+    background-color: #f0f0f0; /* light grey background on hover */
+    color: orangered; /* changes icon color to red on hover */
+}
+``
