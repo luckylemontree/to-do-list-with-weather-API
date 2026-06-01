@@ -22,17 +22,45 @@
     <title>To-Do List with Weather API</title>
 </head>
 
+
 <body>
+    <!-- Main container -->
     <div class="container">
-        <div class="todo-app-header text-center my-4">
-        <h1 class="display-6 fw-bold">To-Do List<img src="assets/images/iconToDoList.png" alt="To-Do List Icon" class="img-fluid" /></h1>
-        
+
+        <!-- To-do app card -->
+        <div class="todo-app">
+
+            <!-- Title with icon -->
+            <h1 class="fw-bold">
+                To-Do List
+                <img src="assets/images/iconToDoList.png" alt="To-Do List Icon" class="img-fluid" />
+            </h1>
+
+            <!-- Input and button row -->
+            <div class="row">
+
+                <!-- Task input field -->
+                <input type="text" id="inputbox-todo" placeholder="Add a new task...">
+
+                <!-- Add task button -->
+                <button id="add-btn">Add</button>
+
+            </div>
+            <!-- Task list container -->
+            <ul id="todo-list">
+                <!--<li class="checked">Task 1</li>
+                <li>Task 2</li>
+                <li>Task 3</li>-->
+            </ul>
+        </div>
     </div>
 
-    <!--JavaScript links-->
+    <!-- Custom JavaScript -->
     <script src="assets/js/script.js"></script>
-     <!-- Bootstrap 5 JS Bundle -->
+
+    <!-- Bootstrap JS bundle -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
+
 
 </html>
