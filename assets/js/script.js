@@ -31,7 +31,7 @@ async function checkWeather() {
 
         displayWeather(data);
         document.querySelector('.search-box input').value = "";
-        
+
         let closeIcon = document.querySelector('.weather-info i');
         closeIcon.addEventListener('click', function () {
             weatherInfo.style.animation = "fadeOut 0.5s ease-in-out";
@@ -85,46 +85,84 @@ function addTodo() {
         // Add the list item to the container
         listContainer.appendChild(li);
 
-        // Create a delete button (span)
-        let span = document.createElement('span');
 
-        // Add "×" symbol (Unicode) inside span
-        span.innerHTML = '\u00d7';
+        // Create stars indicator for the task
+        let starsSpan = document.createElement('span');
+        starsSpan.className = 'task-stars';
+        starsSpan.innerHTML = `
+           <span data-value="1">★</span>
+           <span data-value="2">★</span>
+           <span data-value="3">★</span>
+           <span data-value="4">★</span>
+           <span data-value="5">★</span>
+         `;
+        li.appendChild(starsSpan);
 
-        // Add span inside the li (delete button)
-        li.appendChild(span);
+
+
+        // Create the delete button
+        let deleteSpan = document.createElement('span');
+        deleteSpan.className = 'delete-btn';
+        deleteSpan.textContent = '\u00d7';
+        li.appendChild(deleteSpan);
     }
 
     // Clear the input field after adding task
     todoInput.value = '';
 
+    //stars change
+    starsChange();
     // Save updated list to localStorage
     saveData();
 }
 
-// Add click event listener to the list container
+// Add click event listener to the list container 
+
 listContainer.addEventListener('click', function (e) {
+    // If one star is clicked
+    if (e.target.parentElement.classList.contains('task-stars')) {
+        const starsBox = e.target.parentElement;
+        const rating = Number(e.target.dataset.value);
 
-    // If a list item (<li>) is clicked
-    if (e.target.tagName === 'LI') {
+        const allStars = starsBox.querySelectorAll('span');
 
-        // Toggle "checked" class (mark task complete/incomplete)
-        e.target.classList.toggle('checked');
+        allStars.forEach(function (star) {
+            if (Number(star.dataset.value) <= rating) {
+                star.classList.add('active-star');
+            } else {
+                star.classList.remove('active-star');
+            }
+        });
 
-        // Save updated data
-        saveData()
+        saveData();
+        return;
     }
 
-    // If the delete button (<span>) is clicked
-    else if (e.target.tagName === 'SPAN') {
-
-        // Remove the parent <li> (delete task)
+    // Delete button
+    if (e.target.classList.contains('delete-btn')) {
         e.target.parentElement.remove();
+        saveData();
+        return;
+    }
 
-        // Save updated data
-        saveData()
+    // Find nearest li
+    const li = e.target.closest('li');
+
+    if (!li) return;
+
+    // Mouse position inside li
+    const rect = li.getBoundingClientRect();
+
+    // Distance from left side
+    const clickX = e.clientX - rect.left;
+
+    // Only trigger if clicked near icon
+    if (clickX <= 40) {
+        li.classList.toggle('checked');
+        saveData();
     }
 });
+
 
 // Function to save list data in localStorage
 function saveData() {

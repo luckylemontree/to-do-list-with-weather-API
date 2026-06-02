@@ -150,7 +150,7 @@ h3 {
 .weather-info i {
     position: absolute;
     top: 10px;
-    right: 10px;
+    right: 20px;
     font-size: 18px;
 }
 
@@ -274,16 +274,14 @@ container {
    width: 100%;  
    max-width: 850px; 
    min-height: 400px;
-    background-color: rgba(255, 255, 255, 0.8);
+    background-color: rgba(255, 255, 255, 0.9);
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
     padding: 40px ;
     margin: auto;
     color: black;
-    margin-top:50px;
+    margin-top:50px; 
    
-   
-
 }
 
 /* Header styling with icon alignment */
@@ -354,11 +352,11 @@ ul li {
     list-style: none;
     /* removes default bullet points */
     padding: 10px;
-    font-size: 17px;
+    font-size: 22px;
 
     /* custom padding (top right bottom left) 
-       extra left space for the icon */
-    padding: 12px 8px 12px 50px;
+       extra left space for the icon and right space for delete button */
+    padding: 12px 60px 12px 50px;
 
     /*user-select: none; /* prevents text from being selected */
     cursor: pointer;
@@ -372,13 +370,13 @@ ul li {
 
 /* Add custom icon before each list item */
 ul li::before {
-    content: " ";
+    content: "";
     /* required to display pseudo-element */
     position: absolute;
 
     /* size of the icon */
-    height: 28px;
-    width: 28px;
+    height: 22px;
+    width: 22px;
 
     border-radius: 50%;
     /* makes it circular */
@@ -390,7 +388,7 @@ ul li::before {
 
     /* position icon to the left of text */
     left: 8px;
-    top: 12px;
+    top:18px;
 }
 
 /* Style when a task is marked as completed */
@@ -406,37 +404,53 @@ ul li.checked::before {
     background-image: url(../images/checkedToDoList.png);
 }
 
-/* Style for the delete button (span) inside each list item */
-ul li span {
-    position: absolute;
-    /* positions the span relative to the li */
-    right: 0;
-    /* places it on the right side */
-    top: 5px;
-    /* slightly down from the top */
+/* Style for the gray stars after each task */
+ul li .task-stars {
+    display: inline-block;    
+    
+    vertical-align: middle;
+ position: absolute;
+    right: 60px;
+    top: 50%;
+    transform: translateY(-50%);
 
-    width: 40px;
-    height: 40px;
+    font-size: 18px;
+    
+}
+
+ul li .task-stars span {
+    color: #a79494;
+    cursor: pointer;
+}
+
+ul li .task-stars span.active-star {
+    color: rgb(255, 111, 0);
+}
+
+/* Style for the delete button inside each list item */
+
+ul li .delete-btn {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+
+    width: 36px;
+    height: 36px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
     border-radius: 50%;
-    /* makes the span circular (like a button) */
-
     color: #555;
-    /* default icon color (grey) */
-    font-size: 22px;
-    /* size of the "×" icon */
-
-    line-height: 40px;
-    /* vertically centers the icon */
-    text-align: center;
-    /* horizontally centers the icon */
-
+    font-size: 24px;
     cursor: pointer;
-    /* changes cursor to pointer on hover */
+    z-index: 2;
 }
 
 /* Hover effect for the delete button */
-ul li span:hover {
+ul li .delete-btn:hover {
     background-color: #f0f0f0;
     /* light grey background on hover */
     color: orangered;
