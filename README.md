@@ -21,6 +21,14 @@ This project demonstrates how to build a static frontend application using HTML,
 - `assets/images/` — icon and image assets used in the interface.
 - `responsive.png`, `validation css.png`, `validation index html.png`, `validation lighthouse.png` — image files included for project validation and preview.
 
+## Wireframes
+
+This project was planned with a simple, user-focused interface for desktop and mobile use:
+
+- Desktop wireframe shows the weather search panel and to-do list side-by-side.
+- Mobile wireframe stacks the weather search above the to-do list for easy vertical scrolling.
+- Input controls, task list, and weather results were designed for clear usability and responsive layout.
+![wireframe](https://github.com/luckylemontree/to-do-list-with-weather-API/blob/main/wireframe.png)
 ## How It Works
 
 - Tasks are created when the user types a description and clicks `Add`.
@@ -69,11 +77,25 @@ The weather search feature uses the OpenWeatherMap API.
 - Bootstrap 5
 - OpenWeatherMap API
 
+## Color Palette
+
+The design uses a modern, dark theme with strong contrast for readability:
+
+- `#1a1a1a` — primary background
+- `#292929` — secondary background panels
+- `#404040` — card and element backgrounds
+- `#3b4252` — base accent and panel shading
+- `#666d7e` — secondary accent and muted text
+- `#c4ccdf` — main text and highlight color
+- `#88c0d0` — interactive accents and buttons
+- `#276271` — stronger accent for active elements
+
 ## Validation
 
 This project includes validation checks to ensure code quality and compatibility:
 
 - HTML validation for `index.html`
+
 - CSS validation for `assets/css/style.css`
 - Responsive design checks for desktop and mobile layouts
 - Lighthouse validation for basic accessibility and performance
