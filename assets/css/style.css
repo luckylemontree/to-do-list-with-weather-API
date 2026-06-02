@@ -9,7 +9,7 @@
 /* Body styling with font and gradient background */
 body {
     font-family: 'Nunito', sans-serif;
-    background: url('../images/background.png') no-repeat center center fixed;
+    background: url('../images/background.webp') no-repeat center center fixed;
     background-size: cover;
     background-position: center;
    
@@ -35,16 +35,17 @@ h3 {
     /* Text color */
     background: rgba(255, 255, 255, 0.1);
     /* Gradient background */
-    backdrop-filter: blur(100px);
+    backdrop-filter: blur(30px);
     /* Blur effect for frosted glass look */
     /* border: 2px solid rgba(255, 255, 255, 0.2);
     Subtle border */
     border-radius: 16px;
     /* Rounded corners */
-
-
-    margin: 20px auto;
+    
+    margin: auto;
     /* Center horizontally */
+    margin-top:60px;
+    padding-top: 5px;
     position: relative;
     /* Allows absolute positioning inside */
 }
@@ -61,13 +62,15 @@ h3 {
     /* Space between items */
     width: 100%;
     height: 45px;
+    margin-left: 10px;
+     /* Space on the left for input padding */
 }
 
 /* Style for the input field */
 .search-box input {
     position: absolute;
     /* Positioned inside search-box */
-    width: 90%;
+    width: 85%;
     /* Full width */
     height: 80%;
     /* Slightly smaller height */
@@ -128,10 +131,11 @@ h3 {
     background-color: transparent;
     /* No background */
     font-size: 14px;
-    padding: 0 40px 0 5px;
+    padding: 0 50px 0 5px;
     /* Adjust internal spacing */
     cursor: pointer;
     /* Show pointer on hover */
+   
 }
 
 /* =====================================Container for displaying weather info */
@@ -262,19 +266,22 @@ h3 {
 
 /*++++++++++++++++++++++++++++++++++++++++++++++++++ To-do app card styling */
 /* Main container setup */
-
+container {
+    width: 800px;
+}
 
 .todo-app {
-   width: 100%; 
-   max-width: 80vw;   
+   width: 100%;  
+   max-width: 850px; 
     background-color: rgba(255, 255, 255, 0.95);
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
     padding: 40px ;
     margin: auto;
     color: black;
-     margin-top:100px;
-    
+    margin-top:50px;
+   
+   
 
 }
 
@@ -357,7 +364,7 @@ ul li {
     /* shows pointer when hovering */
     position: relative;
     /* allows positioning of ::before element */
-    font-weight: 800;
+   
 }
 
 /* Add custom icon before each list item */
