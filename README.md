@@ -1,5 +1,5 @@
 ﻿# To-Do List with Weather API
-
+![responsive](images/responsive.png)
 A responsive static web app that combines a local to-do list with live weather search functionality.
 
 This project is built for browser-based use and demonstrates client-side storage, interactive task management, and external API integration.
