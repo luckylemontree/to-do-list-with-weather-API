@@ -1,3 +1,8 @@
+/*-- Google Fonts: Alegreya for headings,Nunito for body text 
+
+@import url('https://fonts.googleapis.com/css2?family=Alegreya:ital,wght@0,400..900;1,400..900&display=swap');
+
+
 /* Reset default spacing and apply box sizing */
 * {
     margin: 0;
@@ -36,8 +41,8 @@ header h1 {
     gap: 10px;
     /* space between text and image */
     text-align: center;
-    color:white;
-    margin-top:60px;
+    color: white;
+    margin-top: 60px;
 }
 
 /* Icon size */
@@ -48,52 +53,77 @@ header h1 img {
 
 
 /*----------------------time and weather--------------*/
-.time-weather{
-       background: rgba(255, 255, 255, 0.1);
-    /* Gradient background */
-    backdrop-filter: blur(30px);
-    /* Blur effect for frosted glass look */
-   
-    border-radius: 16px;
-    /* Rounded corners */
-
-    margin-top: 100px;
-
-}
-/*++++++++++++++++++++++++++++++++++++++++++++++++++ Time styling */
-.time-session {
-    color:white;
-    font-size:30px;
-      background: rgba(255, 255, 255, 0.1);
-    /* Gradient background */
-    backdrop-filter: blur(30px);
-  
-    border-radius: 16px;
-    /* Rounded corners */
-
-    margin-top:80px;
-    text-align:center;
-}
-/*++++++++++++++++++++++++++++++++++++++++++++++++++ Weather API styling */
-/* Main container for the weather app */
-.weather-container {
-    width: 100%;
-    max-width: 300px;
-    /* Fixed width */
-    height: 100px;
-    color: white;
-    /* Text color */
+.time-weather {
     background: rgba(255, 255, 255, 0.1);
     /* Gradient background */
     backdrop-filter: blur(30px);
     /* Blur effect for frosted glass look */
-  
+
     border-radius: 16px;
     /* Rounded corners */
 
-  
-    max-width: 300px;
-    margin: 50px auto 0;
+    margin-top: 50px;
+    height: fit-content;
+
+}
+
+/*++++++++++++++++++++++++++++++++++++++++++++++++++ Date and Time styling */
+.date-time {
+    margin-top: 20px;
+    width: 100%;
+    /* fill the time-weather column */
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(30px);
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+
+.time-session,
+.date-session {
+
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-size: 30px;
+    width: 100%;
+    height: 80px;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+}
+
+.date-session {
+    color: rgb(195, 249, 228);
+}
+
+.time-session {
+    color: white;
+}
+
+
+/*++++++++++++++++++++++++++++++++++++++++++++++++++ Weather API styling */
+/* Main container for the weather app */
+.weather-container {
+    width: 100%;
+    max-width: 100%;
+    /* remove the 300px limit */
+    margin-top: 20px;
+    /* just top spacing, no auto centering */
+    /* keep the rest as is */
+    margin-bottom: 20px;
+    height: fit-content;
+    color: white;
+    /* Text color */
+    background: rgba(255, 255, 255, 0.2);
+    /* Gradient background */
+    backdrop-filter: blur(30px);
+    /* Blur effect for frosted glass look */
+
+    border-radius: 16px;
+    /* Rounded corners */
+
     padding-top: 5px;
     position: relative;
     /* Allows absolute positioning inside */
@@ -109,23 +139,25 @@ header h1 img {
     /* Center vertically */
     gap: 10px;
     /* Space between items */
-    width: 100%;
+    width: 80%;
     height: 45px;
     margin-left: 10px;
     /* Space on the left for input padding */
+    margin-top:15px;
+    padding-right: 50px;
 }
 
 /* Style for the input field */
 .search-box input {
     position: absolute;
     /* Positioned inside search-box */
-    width: 90%;
+    width: 100%;
     /* Full width */
     height: 80%;
     /* Slightly smaller height */
     flex: 1;
 
-    border: 2px solid rgba(255, 255, 255, 0.7);
+    border: 2px solid rgba(255, 255, 255);
     /* Light border */
 
     outline: none;
@@ -143,6 +175,7 @@ header h1 img {
     /* Converts text to capitalize   */
     padding: 10px 48px 10px 42px;
     /* Space inside (right side leaves room for button) */
+    margin-bottom: 10px;
 }
 
 
@@ -189,9 +222,9 @@ header h1 img {
 
 /* =====================================Container for displaying weather info */
 .weather-info {
-    display: none;
-    /* Hidden by default, shown when data is loaded */
+
     position: relative;
+    
     /* Allows absolute positioning of details */
 
 }
@@ -333,7 +366,7 @@ header h1 img {
 
 
 /* Input + button container (same row using flexbox) */
-.todo-app .row {
+.todo-app .type-toDo {
     display: flex;
     /* put elements in one line */
     align-items: center;
@@ -345,8 +378,9 @@ header h1 img {
     background-color: #f0f0f0;
     padding-left: 20px;
     margin-bottom: 25px;
-    border: 2px solid rgba(0, 0, 0, 0.1);
+    border: 2px solid rgba(0, 0, 0, 0.4);
 }
+
 
 /* Task input field styling */
 #inputbox-todo {
@@ -377,9 +411,16 @@ header h1 img {
     font-size: 16px;
 }
 
+#list-container {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+}
+
 /* Style for each to-do list item */
 ul li {
-     display: flex;
+
+    display: flex;
     /* Places text, stars, and delete button in one row */
 
     align-items: flex-start;
@@ -388,15 +429,18 @@ ul li {
 
     list-style: none;
     /* removes default bullet points */
-   
+
     font-size: 22px;
-        padding: 12px 12px 12px 50px;
+    background-color: white;
+    border-bottom: 2px solid orange;
+    border-radius: 10px;
+    padding: 12px 12px 12px 50px;
     /* Padding order: top right bottom left
        Extra left space leaves room for checkbox icon */
-      
+
     cursor: pointer;
     /* shows pointer when hovering */
-    
+    margin-top: 5px;
     position: relative;
     /* Needed for positioning the ::before checkbox icon */
 
@@ -404,10 +448,10 @@ ul li {
     /* Capitalize first letter of each task */
 
     word-break: break-word;
-     /* Prevents very long words/text from overflowing */
+    /* Prevents very long words/text from overflowing */
 
     gap: 10px;
-     /* Adds spacing between task text, stars, and delete button */
+    /* Adds spacing between task text, stars, and delete button */
 }
 
 /* Add custom icon before each list item */
@@ -434,6 +478,14 @@ ul li::before {
     top: 18px;
 }
 
+ul li .task-text {
+    flex: 1 1 auto;
+    min-width: 0;
+    white-space: normal;
+    word-break: normal;
+    overflow-wrap: break-word;
+}
+
 /* Style when a task is marked as completed */
 ul li.checked .task-text {
     text-decoration: line-through;
@@ -447,7 +499,7 @@ ul li.checked::before {
 
 /* Style for the gray stars after each task */
 ul li .task-stars {
-    display: inline-block;   
+    display: inline-block;
     vertical-align: middle;
 
     font-size: 22px;
@@ -470,17 +522,18 @@ ul li .task-stars span {
 
 ul li .task-stars span.active-star {
     color: rgb(255, 111, 0);
+    transform: scale(1.5);
 }
 
 /* Style for the delete button inside each list item */
 
 ul li .delete-btn {
 
- flex-shrink: 0;
+    flex-shrink: 0;
 
     width: 36px;
     height: 36px;
-  
+
     display: flex;
     align-items: center;
     justify-content: center;
@@ -491,7 +544,7 @@ ul li .delete-btn {
     cursor: pointer;
     z-index: 2;
 
-  
+
 }
 
 /* Hover effect for the delete button */
@@ -505,42 +558,47 @@ ul li .delete-btn:hover {
 /*===========================================================
               For different screen size
 =============================================================*/
-/* Apply these styles only when screen width is 370px or smaller */
-@media (max-width: 370px) {
+/* Apply these styles only when screen width is 500px or smaller */
+@media (max-width: 500px) {
 
-    /* Adjust spacing inside each task item */
+    .todo-app {
+        max-width: 360px;
+        width: 100%;
+        margin-left: auto;
+        margin-right: auto;
+        padding: 2px;
+    }
+
+    .type-toDo {
+        margin-top:15px;
+    }
+
+    #list-container {
+        width: 100%;
+        max-width: 350px;
+    }
+
     ul li {
-
-        /* Reduce right padding because screen is smaller */
-        padding-right: 20px;
-
-        /* Add extra bottom space for stars to move below text */
-        padding-bottom: 45px;
+        flex-wrap: wrap;
+        margin-right:15px;
     }
 
-    /* Move stars below the task text on small screens */
+    ul li .task-text {
+        flex: 1 1 100%;
+        min-width: 0;
+    }
+
     ul li .task-stars {
-
-        /* Reset absolute positioning */
-        position: static;
-
-        /* Make stars take a full new line */
-        display: block;
-
-        /* Add space above stars */
-        margin-top: 10px;
-
-        /* Remove left spacing */
-        margin-left: 0;
-
-        /* Remove previous vertical centering transform */
-        transform: none;
+        margin-left: 50px;
+        width: auto;
+        font-size: 10px;
     }
 
-    /* Adjust delete button position for mobile layout */
     ul li .delete-btn {
-
-        /* Move delete button slightly upward */
-        top: 18px;
+        margin-left: auto;
     }
+/*++++++++++++++++ weather+++++++++++*/
+.search-box {
+    margin-top:10px;
+}
 }
