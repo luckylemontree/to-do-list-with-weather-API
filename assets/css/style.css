@@ -18,34 +18,43 @@ body {
     background: url('../images/background.webp') no-repeat center center fixed;
     background-size: cover;
     background-position: center;
-
-
+    position: relative;
 }
 
 
-/*=======================================
-            header
-==========================================*/
-/* Header styling with icon alignment */
-header h1 {
+/*----------------------change background img--------------*/
+/* The button — fixed position so it stays visible when scrolling */
+#changeBackground {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.3);
+    position: fixed;        /* stays on screen */
+    left: 20px;
+    top: 20px;
+    color: white;
+    font-weight: 600;
     display: flex;
     justify-content: center;
-    /* centers horizontally */
     align-items: center;
-    /* aligns text and image */
-    gap: 10px;
-    /* space between text and image */
-    text-align: center;
-    color: white;
-    margin-top: 60px;
+    cursor: pointer;
+    z-index: 999;           /*  stays on top of everything */
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255,255,255,0.4);
 }
 
-/* Icon size */
-header h1 img {
-    width: 30px;
-    height: 30px;
+/* Applied by JavaScript when clicked */
+#changeBackground.clicked {
+    animation: moveAround 1s linear;   /* animation on the button itself */
 }
 
+@keyframes moveAround {
+    0%   { background-color: rgb(249, 194, 194); left: 20px;  top: 20px;  }
+   25%  { background-color: rgb(248, 248, 179); left: 200px; top: 20px;  }
+    /*50%  { background-color: rgb(181, 181, 250); left: 200px; top: 200px; }*/
+    /*75% { background-color: rgb(188, 243, 188); left: 20px;  top: 200px; }*/
+   100% { background-color: rgb(247, 228, 228); left: 20px;  top: 20px;  }
+}
 
 /*----------------------time and weather--------------*/
 .time-weather {
@@ -53,6 +62,8 @@ header h1 img {
     /* Gradient background */
     backdrop-filter: blur(30px);
     /* Blur effect for frosted glass look */
+    -webkit-backdrop-filter: blur(30px);
+    /* For Safari*/
 
     border-radius: 16px;
     /* Rounded corners */
@@ -68,7 +79,11 @@ header h1 img {
     width: 100%;
     /* fill the time-weather column */
     background: rgba(255, 255, 255, 0.1);
+
     backdrop-filter: blur(30px);
+    -webkit-backdrop-filter: blur(30px);
+    /* For Safari*/
+
     border-radius: 10px;
     overflow: hidden;
 }
@@ -116,7 +131,7 @@ header h1 img {
     backdrop-filter: blur(30px);
     /* Blur effect for frosted glass look */
     -webkit-backdrop-filter: blur(30px);
-    /**/
+    /* For Safari*/
 
     border-radius: 16px;
     /* Rounded corners */
@@ -140,7 +155,7 @@ header h1 img {
     height: 45px;
     margin-left: 10px;
     /* Space on the left for input padding */
-    margin-top:15px;
+    margin-top: 15px;
     padding-right: 50px;
 }
 
@@ -221,7 +236,7 @@ header h1 img {
 .weather-info {
 
     position: relative;
-    
+
     /* Allows absolute positioning of details */
 
 }
@@ -286,7 +301,7 @@ header h1 img {
 /*================================= Container for additional weather details (humidity, wind speed) */
 .weather-details {
     position: static;
-      left: 0;
+    left: 0;
     width: 100%;
     padding: 0 20px;
     /* Padding on sides */
@@ -316,7 +331,7 @@ header h1 img {
 /* Icons for humidity and wind speed */
 .weather-details .humidity img,
 .weather-details .wind img {
-    width: 30px;    
+    width: 30px;
     /* Size of the icons */
     margin-right: 10px;
     /* Slight spacing from text */
@@ -342,24 +357,44 @@ header h1 img {
 
 /*++++++++++++++++++++++++++++++++++++++++++++++++++ To-do app card styling */
 /* Main container setup */
-.to-do-title h1{
-     font-family: 'Alegreya', serif;
-} 
+/*-------------------  header*/
+/* Header styling with icon alignment */
+header h1 {
+    display: flex;
+    justify-content: center;
+    /* centers horizontally */
+    align-items: center;
+    /* aligns text and image */
+    gap: 10px;
+    /* space between text and image */
+    text-align: center;
+    color: white;
+    margin-top: 60px;
+}
 
+/* Icon size */
+header h1 img {
+    width: 30px;
+    height: 30px;
+}
+
+.to-do-title h1 {
+    font-family: 'Alegreya', serif;
+}
+
+/* To-do app card: white panel with rounded corners, shadow, and centered layout */
 .todo-app {
     width: 100%;
     max-width: 850px;
     min-height: 400px;
     background-color: rgba(255, 255, 255, 0.9);
     border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.9);
     padding: 40px;
     margin: auto;
     color: black;
-    margin-top: 50px;
-
+    margin-top: 30px;
 }
-
 
 
 /* Input + button container (same row using flexbox) */
@@ -427,7 +462,7 @@ ul li {
     list-style: none;
     /* removes default bullet points */
 
-    font-size: 22px;
+    font-size: 18px;
     background-color: white;
     border-bottom: 2px solid orange;
     border-radius: 10px;
@@ -557,6 +592,7 @@ ul li .delete-btn:hover {
 /* Apply these styles only when screen width is 500px or smaller */
 @media (max-width: 500px) {
 
+    /* Responsive layout for small screens */
     .todo-app {
         max-width: 360px;
         width: 100%;
@@ -566,7 +602,7 @@ ul li .delete-btn:hover {
     }
 
     .type-toDo {
-        margin-top:15px;
+        margin-top: 15px;
     }
 
     #list-container {
@@ -576,7 +612,7 @@ ul li .delete-btn:hover {
 
     ul li {
         flex-wrap: wrap;
-        margin-right:15px;
+        margin-right: 15px;
     }
 
     ul li .task-text {
@@ -593,8 +629,9 @@ ul li .delete-btn:hover {
     ul li .delete-btn {
         margin-left: auto;
     }
-/*++++++++++++++++ weather+++++++++++*/
-.search-box {
-    margin-top:10px;
-}
+
+    /*++++++++++++++++ weather+++++++++++*/
+    .search-box {
+        margin-top: 10px;
+    }
 }

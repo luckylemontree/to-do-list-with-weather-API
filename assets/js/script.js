@@ -1,6 +1,34 @@
-// ++++++++++++++++++++++++++++++++++++++++++++++++++Script for To-do List App with Weather API and time+++
+// ++++++++++++++++++++++++++++++++Script for To-do List App with Weather API and time+++
 
-//+++++++++++++++++++++++++++++++++++++++++++++++++++++Script for date+++++++++++++++++++++++++
+const changeBtn = document.getElementById('changeBackground');
+
+// List of background images to cycle through
+const backgrounds = [
+    "assets/images/background.webp",
+    "assets/images/mountain.webp",
+    "assets/images/rose.webp",
+    "assets/images/bluelight.webp",
+    "assets/images/skystars.webp",
+];
+
+let currentBg = 0;
+
+changeBtn.addEventListener('click', function () {
+    // Cycle to the next background image
+    currentBg = (currentBg + 1) % backgrounds.length;
+    document.body.style.background = `url('${backgrounds[currentBg]}') no-repeat center center fixed`;
+    document.body.style.backgroundSize = "cover";
+
+    // Remove the class first so animation can re-trigger on each click
+    changeBtn.classList.remove('clicked');
+
+    // Small timeout forces browser to re-render before re-adding the class
+    void changeBtn.offsetWidth; //  triggers reflow
+    changeBtn.classList.add('clicked');
+});
+
+
+//+++++++++++++++++++++++++++Script for date+++++++++++++++++++++++++
 
 // Get the HTML elements that display day, month, and year
 let day = document.getElementById("day");
