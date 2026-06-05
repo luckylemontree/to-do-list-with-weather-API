@@ -43,8 +43,9 @@ document.getElementById('textBtn').addEventListener('click', function () {
 
 document.getElementById('textColor').addEventListener('input', function () {
     document.querySelectorAll('header h1, .date-session, .time-session, .weather-container, .weather-box, .weather-details').forEach(el => {
-        el.style.color = this.value;
+        el.style.color = this.value;    
     });
+     document.querySelectorAll('.todo-app').forEach(s => s.style.backgroundColor = this.value);
 });
 
 // Brightness toggle

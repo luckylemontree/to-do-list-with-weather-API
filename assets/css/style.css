@@ -766,7 +766,28 @@ ul li .delete-btn:hover {
 =============================================================*/
 /* Apply these styles only when screen width is 500px or smaller */
 @media (max-width: 500px) {
+    
+    #click,
+#changeBackground,
+#accentBtn,
+#textBtn,
+#brightnessBtn {
+    width: 40px;
+    height: 40px;
+}
 
+/* hide the actual colour input, make the whole div clickable */
+#accentBtn input[type="color"],
+#textBtn input[type="color"] {
+   
+    width: 50%;
+    height: 50%;
+   
+}
+
+#brightnessSlider {
+    left:300px;
+}
     /* Responsive layout for small screens */
     .todo-app {
         max-width: 360px;
