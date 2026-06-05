@@ -77,6 +77,7 @@ body {
 #changeBackground.clicked {
     animation: moveAround 1s linear;
     /* animation on the button itself */
+   
 }
 
 
@@ -134,9 +135,7 @@ body {
     transition: background 0.3s;
 }
 
-main,
-#changeBackground,
-#brightnessBtn {
+main {
     position: relative;
     z-index: 1;
 }

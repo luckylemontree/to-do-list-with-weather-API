@@ -349,8 +349,11 @@ function addTodo() {
 
     li.appendChild(wellDoneImg);
 
+    // Add new task at the top of the list
+    listContainer.insertBefore(li, listContainer.firstChild);
+
     // Add the list item to the visible task list
-    listContainer.appendChild(li);
+    //listContainer.appendChild(li);
 
 
     // Clear the input field after the task is added
@@ -432,13 +435,13 @@ listContainer.addEventListener('click', function (e) {
                 sortTasks();
             }, 2000);
 
-           
+
 
 
         } else {
             // Task unchecked — hide image immediately
             wellDoneImg.style.display = 'none';
-             //------------------sort the tasks: unclick tasks are on the top
+            //------------------sort the tasks: unclick tasks are on the top
             sortTasks();
         }
 
