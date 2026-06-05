@@ -160,6 +160,7 @@ async function checkWeather() {
 
         // Pass data to displayWeather() to update the UI
         displayWeather(data);
+        weatherContainer.style.height = "450px";
 
         // Clear the search input after a successful fetch
         document.querySelector(".search-box input").value = "";
@@ -180,7 +181,7 @@ closeIcon.addEventListener('click', function () {
     let weatherInfo = document.querySelector('.weather-info');
     // Trigger fade-out animation before hiding
     weatherInfo.style.animation = "fadeOut 0.5s ease-in-out";
-    setTimeout(() => {
+       setTimeout(() => {
         // Hide the weather info and shrink the container after animation
         weatherInfo.style.display = "none";
         weatherContainer.style.height = "100px";
@@ -361,6 +362,8 @@ function addTodo() {
 
     // Save the updated list to localStorage so it persists after refresh
     saveData();
+    // Refresh the task counter display (remaining/total)
+    updateCounter();
 }
 
 // Allow user to add a task by pressing Enter instead of clicking the Add button
@@ -399,11 +402,15 @@ listContainer.addEventListener('click', function (e) {
     if (e.target.classList.contains('delete-btn')) {
         e.target.parentElement.remove();
         saveData();
+        // Refresh the task counter display (remaining/total)
+        updateCounter();
         return;
     }
 
 
-    //------------------------------------- checked button-----------------
+    /*====================== 
+     checked button
+    ========================*/
     // Find the nearest <li> ancestor of the clicked element
     const li = e.target.closest('li');
     if (!li) return;
@@ -419,7 +426,7 @@ listContainer.addEventListener('click', function (e) {
         li.classList.toggle('checked');
 
 
-        // -------------------- Show "well done" after finish the task
+        //------------------------ Show "well done" after finish the task
         // Get the well done image inside this specific li
         const wellDoneImg = li.querySelector('.wellDone-img');
 
@@ -435,9 +442,6 @@ listContainer.addEventListener('click', function (e) {
                 sortTasks();
             }, 2000);
 
-
-
-
         } else {
             // Task unchecked — hide image immediately
             wellDoneImg.style.display = 'none';
@@ -446,10 +450,16 @@ listContainer.addEventListener('click', function (e) {
         }
 
 
+        // Save the updated list to localStorage
         saveData();
+        // Refresh the task counter display (remaining/total)
+        updateCounter();
     }
-});
+    });
 
+/*====================
+     Sort tasks
+    =====================*/
 // Sort tasks so unchecked stay on top, checked go to the bottom
 function sortTasks() {
     // Get all current li items as an array
@@ -466,6 +476,17 @@ function sortTasks() {
     saveData();
 }
 
+
+/*====================
+    Tasks counter
+    =====================*/
+function updateCounter() {
+    const all = listContainer.querySelectorAll('li');
+    const unchecked = listContainer.querySelectorAll('li:not(.checked)');
+    document.getElementById('total-tasks').textContent = all.length;
+    document.getElementById('remaining-tasks').textContent = unchecked.length;
+}
+
 // Function to save the current list HTML to localStorage
 function saveData() {
     // Store the full innerHTML so tasks, stars, and checked state are all preserved
@@ -480,7 +501,8 @@ function showTask() {
     if (savedData) {
         listContainer.innerHTML = savedData;
 
-
+        // Refresh the task counter display (remaining/total)
+        updateCounter();
         // welldone is hidden
         listContainer.querySelectorAll('.wellDone-img').forEach(img => {
             img.style.display = 'none';

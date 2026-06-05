@@ -22,70 +22,16 @@ body {
 }
 
 
-/*----------------------change background img--------------*/
-/* The button — fixed position so it stays visible when scrolling */
-#click {
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    background: rgba(255, 255, 255, 0.3);
-    position: fixed;
-    /* stays on screen */
-    left: 20px;
-    top: 20px;
-    color: white;
-    font-weight: 600;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-    z-index: 999;
-    /*  stays on top of everything */
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.4);
-}
+/*==================================
+       Top buttons
+ ==============================*/
 
+#click,
 #changeBackground,
 #accentBtn,
 #textBtn,
-#brightnessBtn,
-#brightnessSlider {
-    display: none;
-}
-
-/* change the background image*/
-#changeBackground {
-   width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    background: rgba(255, 255, 255, 0.3);
-    position: fixed;
-    left: 80px;
-    top: 20px;
-    color: white;
-    font-weight: 600;
-    /* NO display: flex here */
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-    z-index: 999;
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.4);
-}
-
-/* Applied by JavaScript when clicked */
-#changeBackground.clicked {
-    animation: moveAround 1s linear;
-    /* animation on the button itself */
-   
-}
-
-
-
-/*-------------colour  and text picker------------*/
-#accentBtn,
-#textBtn {
-     width: 50px;
+#brightnessBtn {
+    width: 50px;
     height: 50px;
     border-radius: 50%;
     background: rgba(255, 255, 255, 0.3);
@@ -104,6 +50,34 @@ body {
     overflow: hidden;
 }
 
+#changeBackground,
+#accentBtn,
+#textBtn,
+#brightnessBtn,
+#brightnessSlider {
+    display: none;
+}
+
+#click {
+    left: 20px;  
+    display:flex;
+  
+}
+
+/* change the background image*/
+#changeBackground {
+    left: 80px;
+}
+
+/* Applied by JavaScript when clicked */
+#changeBackground.clicked {
+    animation: moveAround 1s linear;
+    /* animation on the button itself */
+
+}
+
+
+/*-------------colour  and text picker------------*/
 #accentBtn {
     left: 140px;
 }
@@ -111,6 +85,7 @@ body {
 #textBtn {
     left: 200px;
 }
+
 
 /* hide the actual colour input, make the whole div clickable */
 #accentBtn input[type="color"],
@@ -126,6 +101,10 @@ body {
 }
 
 /*-----------------for the change the background color-----*/
+#brightnessBtn {
+    left: 260px;
+}
+
 #bgOverlay {
     position: fixed;
     inset: 0;
@@ -135,30 +114,6 @@ body {
     transition: background 0.3s;
 }
 
-main {
-    position: relative;
-    z-index: 1;
-}
-
-#brightnessBtn {
-   width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    background: rgba(255, 255, 255, 0.3);
-    position: fixed;
-    left: 260px;
-    top: 20px;
-    color: white;
-    font-size: 18px;
-    /* NO display: flex here */
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-    z-index: 999;
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.4);
-    font-weight: 600;
-}
 
 #brightnessSlider {
     position: fixed;
@@ -166,11 +121,16 @@ main {
     top: 32px;
     z-index: 999;
     width: 110px;
-    display: none;
-    /* hidden until button clicked */
     accent-color: white;
 }
 
+/*=============================================
+               main
+==================================================*/
+main {
+    position: relative;
+    z-index: 1;
+}
 /*----------------------time and weather--------------*/
 .time-weather {
     background: rgba(255, 255, 255, 0.1);
@@ -185,9 +145,6 @@ main {
 
     margin-top: 50px;
     height: fit-content;
-
-
-
 }
 
 /*++++++++++++++++++++++++++++++++++++++++++++++++++ Date and Time styling */
@@ -516,6 +473,14 @@ header h1 img {
     margin-top: 30px;
 }
 
+/*tasks counter*/
+#task-counter {
+    text-align: right;
+    color: #888;
+    font-size: 14px;
+    margin-bottom: 8px;
+    font-weight: 600;
+}
 
 /* Input + button container (same row using flexbox) */
 .todo-app .todo-input-container {
