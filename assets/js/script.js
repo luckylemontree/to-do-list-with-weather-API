@@ -1,3 +1,5 @@
+/* jshint esversion: 9 */
+
 // ++++++++++++++++++++++++++++++++Script for To-do List App with Weather API and time+++
 const apiKey = 'f56768d8967f3a3fddcf238efff96c78';//APIkey
 const changeBtn = document.getElementById('changeBackground');
@@ -11,7 +13,8 @@ const toggleBtns = [
     document.getElementById('textBtn'),
     document.getElementById('brightnessBtn'),
 ];
-let brightnessSlider = document.getElementById('brightnessSlider')
+
+let brightnessSlider = document.getElementById('brightnessSlider');
 let menuOpen = false;
 
 clickBtn.addEventListener('click', function () {
@@ -48,12 +51,11 @@ document.getElementById('textColor').addEventListener('input', function () {
      document.querySelectorAll('.todo-app').forEach(s => s.style.backgroundColor = this.value);
 });
 
-// Brightness toggle
-function toggleBrightness() {
-    brightnessSlider.style.display = document.getElementById("brightnessSlider");
-        brightnessSlider.style.display === 'block' ? 'none' : 'block';
-}
+// Brightness toggle 
+function toggleBrightness() { 
+        brightnessSlider.style.display = brightnessSlider.style.display === 'block' ? 'none' : 'block'; }
 
+        
 brightnessSlider.addEventListener('input', function () {
     const alpha = (this.value / 100).toFixed(2);
      let bgOverlay = document.getElementById("bgOverlay");
