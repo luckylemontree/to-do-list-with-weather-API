@@ -36,14 +36,44 @@
 
         <!--  accent colour picker -->
         <div id="accentBtn" title="Accent colour">
-            <label for="accentColor">🎨</label>
-            <input type="color" id="accentColor" value="#f77512">
+            <span>🎨</span>
         </div>
 
         <!--  text colour picker -->
         <div id="textBtn" title="Text colour">
-            <label for="textColor">T</label>
-            <input type="color" id="textColor" value="#f6f4f2">
+            <span>T</span>
+        </div>
+
+        <!-- Accent colour popup -->
+        <div id="accentPopup" class="color-popup">
+            <p class="popup-label">Accent colour</p>
+            <div class="swatch-grid" id="accentSwatches">
+                <span class="color-swatch" data-color="#f77512"></span>
+                <span class="color-swatch" data-color="#e74c3c"></span>
+                <span class="color-swatch" data-color="#9b59b6"></span>
+                <span class="color-swatch" data-color="#3498db"></span>
+                <span class="color-swatch" data-color="#2ecc71"></span>
+                <span class="color-swatch" data-color="#f1c40f"></span>
+                <span class="color-swatch" data-color="#e91e63"></span>
+                <span class="color-swatch swatch-white" data-color="#ffffff"></span>
+            </div>
+            <label class="custom-color-label">Custom <input type="color" id="accentColor" value="#f77512"></label>
+        </div>
+
+        <!-- Text colour popup -->
+        <div id="textPopup" class="color-popup">
+            <p class="popup-label">Text colour</p>
+            <div class="swatch-grid" id="textSwatches">
+                <span class="color-swatch swatch-offwhite" data-color="#f6f4f2"></span>
+                <span class="color-swatch swatch-white" data-color="#ffffff"></span>
+                <span class="color-swatch" data-color="#000000"></span>
+                <span class="color-swatch" data-color="#2c3e50"></span>
+                <span class="color-swatch" data-color="#e74c3c"></span>
+                <span class="color-swatch" data-color="#27ae60"></span>
+                <span class="color-swatch" data-color="#3498db"></span>
+                <span class="color-swatch" data-color="#f39c12"></span>
+            </div>
+            <label class="custom-color-label">Custom <input type="color" id="textColor" value="#f6f4f2"></label>
         </div>
 
         <!-- overlay for brightness -->

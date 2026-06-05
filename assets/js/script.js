@@ -27,28 +27,78 @@ clickBtn.addEventListener('click', function () {
     }
 });
 
-// Accent colour picker
-document.getElementById('accentBtn').addEventListener('click', function () {
-    document.getElementById('accentColor').click();
+// Colour apply helpers
+function applyAccentColor(color) {
+    document.documentElement.style.setProperty('--accent-color', color);
+    document.querySelectorAll('#add-btn').forEach(el => el.style.backgroundColor = color);
+    document.querySelectorAll('ul li').forEach(li => li.style.borderBottomColor = color);
+    document.querySelectorAll('ul li .task-stars span.active-star').forEach(s => s.style.color = color);
+}
+
+function applyTextColor(color) {
+    document.querySelectorAll('header h1, .date-session, .time-session, .weather-container, .weather-box, .weather-details').forEach(el => {
+        el.style.color = color;
+    });
+    document.querySelectorAll('.todo-app').forEach(s => s.style.backgroundColor = color);
+}
+
+function closeColorPopups() {
+    document.getElementById('accentPopup').style.display = 'none';
+    document.getElementById('textPopup').style.display = 'none';
+}
+
+// Toggle accent popup
+document.getElementById('accentBtn').addEventListener('click', function (e) {
+    e.stopPropagation();
+    const popup = document.getElementById('accentPopup');
+    const isOpen = popup.style.display === 'flex';
+    closeColorPopups();
+    popup.style.display = isOpen ? 'none' : 'flex';
 });
 
+// Toggle text popup
+document.getElementById('textBtn').addEventListener('click', function (e) {
+    e.stopPropagation();
+    const popup = document.getElementById('textPopup');
+    const isOpen = popup.style.display === 'flex';
+    closeColorPopups();
+    popup.style.display = isOpen ? 'none' : 'flex';
+});
+
+// Prevent clicks inside popups from closing them
+document.getElementById('accentPopup').addEventListener('click', e => e.stopPropagation());
+document.getElementById('textPopup').addEventListener('click', e => e.stopPropagation());
+
+// Close popups when clicking anywhere outside
+document.addEventListener('click', closeColorPopups);
+
+// Accent swatches
+document.getElementById('accentSwatches').addEventListener('click', function (e) {
+    if (e.target.classList.contains('color-swatch')) {
+        const color = e.target.dataset.color;
+        document.getElementById('accentColor').value = color;
+        applyAccentColor(color);
+        closeColorPopups();
+    }
+});
+
+// Text swatches
+document.getElementById('textSwatches').addEventListener('click', function (e) {
+    if (e.target.classList.contains('color-swatch')) {
+        const color = e.target.dataset.color;
+        document.getElementById('textColor').value = color;
+        applyTextColor(color);
+        closeColorPopups();
+    }
+});
+
+// Custom colour inputs (native picker for exact colour)
 document.getElementById('accentColor').addEventListener('input', function () {
-    document.documentElement.style.setProperty('--accent-color', this.value);
-    document.querySelectorAll('#add-btn').forEach(el => el.style.backgroundColor = this.value);
-    document.querySelectorAll('ul li').forEach(li => li.style.borderBottomColor = this.value);
-    document.querySelectorAll('ul li .task-stars span.active-star').forEach(s => s.style.color = this.value);
-});
-
-// Text colour picker
-document.getElementById('textBtn').addEventListener('click', function () {
-    document.getElementById('textColor').click();
+    applyAccentColor(this.value);
 });
 
 document.getElementById('textColor').addEventListener('input', function () {
-    document.querySelectorAll('header h1, .date-session, .time-session, .weather-container, .weather-box, .weather-details').forEach(el => {
-        el.style.color = this.value;    
-    });
-     document.querySelectorAll('.todo-app').forEach(s => s.style.backgroundColor = this.value);
+    applyTextColor(this.value);
 });
 
 // Brightness toggle 

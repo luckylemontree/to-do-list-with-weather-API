@@ -88,17 +88,83 @@ body {
 }
 
 
-/* hide the actual colour input, make the whole div clickable */
-#accentBtn input[type="color"],
-#textBtn input[type="color"] {
-    position: absolute;
-    inset: 0;
-    opacity: 0;
-    width: 100%;
-    height: 100%;
+/*-------------- colour picker popups ----------------*/
+.color-popup {
+    position: fixed;
+    top: 80px;
+    left: 20px;
+    z-index: 1000;
+    background: rgba(255, 255, 255, 0.95);
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+    border-radius: 10px;
+    padding: 10px;
+    display: none;
+    flex-direction: column;
+    gap: 8px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
+    min-width: 150px;
+}
+
+.popup-label {
+    margin: 0;
+    font-size: 11px;
+    font-weight: 600;
+    color: #555;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.swatch-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 5px;
+}
+
+.color-swatch {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
     cursor: pointer;
+    border: 2px solid transparent;
+    transition: border-color 0.15s, transform 0.15s;
+}
+
+.color-swatch[data-color="#f77512"] { background: #f77512; }
+.color-swatch[data-color="#e74c3c"] { background: #e74c3c; }
+.color-swatch[data-color="#9b59b6"] { background: #9b59b6; }
+.color-swatch[data-color="#3498db"] { background: #3498db; }
+.color-swatch[data-color="#2ecc71"] { background: #2ecc71; }
+.color-swatch[data-color="#f1c40f"] { background: #f1c40f; }
+.color-swatch[data-color="#e91e63"] { background: #e91e63; }
+.color-swatch[data-color="#000000"] { background: #000000; }
+.color-swatch[data-color="#2c3e50"] { background: #2c3e50; }
+.color-swatch[data-color="#27ae60"] { background: #27ae60; }
+.color-swatch[data-color="#f39c12"] { background: #f39c12; }
+.color-swatch.swatch-white         { background: #ffffff; border-color: #bbb; }
+.color-swatch.swatch-offwhite      { background: #f6f4f2; border-color: #bbb; }
+
+.color-swatch:hover {
+    border-color: #333;
+    transform: scale(1.15);
+}
+
+.custom-color-label {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    color: #555;
+    cursor: pointer;
+}
+
+.custom-color-label input[type="color"] {
+    width: 24px;
+    height: 24px;
     border: none;
     padding: 0;
+    cursor: pointer;
+    border-radius: 4px;
 }
 
 /*-----------------for the change the background color-----*/
@@ -768,15 +834,6 @@ ul li .delete-btn:hover {
 #brightnessBtn {
     width: 40px;
     height: 40px;
-}
-
-/* hide the actual colour input, make the whole div clickable */
-#accentBtn input[type="color"],
-#textBtn input[type="color"] {
-   
-    width: 50%;
-    height: 50%;
-   
 }
 
 #brightnessSlider {
