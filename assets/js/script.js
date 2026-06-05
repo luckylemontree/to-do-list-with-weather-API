@@ -122,8 +122,6 @@ setInterval(() => {
 
 // Get references to weather-related DOM elements used across multiple functions
 let weatherContainer = document.querySelector('.weather-container');
-let weatherBox = document.querySelector('.weather-box');
-let weatherDetails = document.querySelector('.weather-details');
 
 
 // Function to fetch weather data from OpenWeatherMap API using city name typed by user
