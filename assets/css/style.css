@@ -22,10 +22,10 @@ body {
     position: relative;
 }
 
-
-/*==================================
+/*++++++++++++++++++++++++++++++++++++++++++*/
+/*================================================
        Top buttons
- ==============================*/
+ ===================================================*/
 
 /* Toolbar that lays the control buttons out in a row */
 .controls {
@@ -97,13 +97,6 @@ body {
 }
 
 
-/* Applied by JavaScript when clicked */
-#changeBackground.clicked {
-    animation: moveAround 1s linear;
-    /* animation on the button itself */
-
-}
-
 
 /*-------------- colour picker popups ----------------*/
 .color-popup {
@@ -123,6 +116,7 @@ body {
     min-width: 150px;
 }
 
+/* Small uppercase heading at the top of each popup (e.g. "ACCENT COLOUR") */
 .popup-label {
     margin: 0;
     font-size: 11px;
@@ -132,12 +126,14 @@ body {
     letter-spacing: 0.5px;
 }
 
+/* 4-column grid that arranges the preset colour swatches */
 .swatch-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 5px;
 }
 
+/* A single preset colour circle; the data-color rules below fill each one */
 .color-swatch {
     width: 28px;
     height: 28px;
@@ -147,6 +143,7 @@ body {
     transition: border-color 0.15s, transform 0.15s;
 }
 
+/* Fill each swatch with its colour — matched by the data-color attribute (read by JS too) */
 .color-swatch[data-color="#f77512"] { background: #f77512; }
 .color-swatch[data-color="#e74c3c"] { background: #e74c3c; }
 .color-swatch[data-color="#9b59b6"] { background: #9b59b6; }
@@ -161,11 +158,13 @@ body {
 .color-swatch.swatch-white         { background: #ffffff; border-color: #bbb; }
 .color-swatch.swatch-offwhite      { background: #f6f4f2; border-color: #bbb; }
 
+/* Highlight + slightly enlarge a swatch on hover */
 .color-swatch:hover {
     border-color: #333;
     transform: scale(1.15);
 }
 
+/* "Custom" row holding the native colour-picker input and its label */
 .custom-color-label {
     display: flex;
     align-items: center;
@@ -175,6 +174,7 @@ body {
     cursor: pointer;
 }
 
+/* The native OS colour picker box (accentColor / textColor inputs) */
 .custom-color-label input[type="color"] {
     width: 24px;
     height: 24px;
@@ -185,16 +185,19 @@ body {
 }
 
 /*-------------- scene (background gradient) picker ----------------*/
+/* Scene popup is wider than the colour popups to fit the 3-column grid */
 .scene-popup {
     min-width: 230px;
 }
 
+/* 3-column grid of scene preview tiles */
 .scene-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 8px;
 }
 
+/* A single scene preview tile; relative so the .scene-name label can sit inside it */
 .scene-swatch {
     position: relative;
     height: 60px;
@@ -206,15 +209,18 @@ body {
     transition: border-color 0.15s, transform 0.15s;
 }
 
+/* Highlight + slightly enlarge a scene tile on hover */
 .scene-swatch:hover {
     border-color: #333;
     transform: scale(1.05);
 }
 
+/* Outline the currently-selected scene (class toggled by JS) */
 .scene-swatch.active {
     border-color: #2c3e50;
 }
 
+/* Scene label sitting in the bottom-left corner of each tile */
 .scene-name {
     position: absolute;
     left: 6px;
@@ -240,6 +246,8 @@ body {
     border-color: rgba(255, 255, 255, 0.25);
 }
 
+/* Full-page tint layer; JS raises its alpha to dim the page in dark mode.
+   pointer-events:none lets clicks pass through to the content underneath. */
 #bgOverlay {
     position: fixed;
     inset: 0;
@@ -249,6 +257,9 @@ body {
     transition: background 0.3s;
 }
 
+
+
+/*++++++++++++++++++++++++++++++++++++++++++*/
 /*=============================================
                main
 ==================================================*/
@@ -256,7 +267,326 @@ main {
     position: relative;
     z-index: 1;
 }
-/*----------------------time and weather--------------*/
+
+/*++++++++++++++++++++++++++++++++++++++++++*/
+/*==============================================
+
+     To-do app card styling 
+
+===================================================*/
+/* Main container setup */
+/*-------------------  header*/
+/* Header styling with icon alignment */
+header h1 {
+    display: flex;
+    justify-content: center;
+    /* centers horizontally */
+    align-items: center;
+    /* aligns text and image */
+    gap: 10px;
+    /* space between text and image */
+    text-align: center;
+    color: rgb(246, 244, 242);
+    margin-top: 60px;
+    font-family: 'Alegreya';
+    font-size: 5rem;
+}
+
+/* Icon size */
+header h1 img {
+    width: 30px;
+    height: 30px;
+}
+
+.to-do-title h1 {
+    font-family: 'Alegreya', serif;
+}
+
+/* To-do app card: white panel with rounded corners, shadow, and centered layout */
+.todo-app {
+    width: 100%;
+    max-width: 850px;
+    min-height: 400px;
+    background-color: rgba(255, 255, 255, 0.9);
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.9);
+    padding: 40px;
+    margin: auto;
+    color: black;
+    margin-top: 30px;
+}
+
+/*tasks counter*/
+#task-counter {
+    text-align: right;
+    color: #595959;
+    font-size: 14px;
+    margin-bottom: 8px;
+    font-weight: 600;
+}
+
+/* Input + button container (same row using flexbox) */
+.todo-app .todo-input-container {
+    display: flex;
+    /* put elements in one line */
+    align-items: center;
+    /* vertically center items */
+    justify-content: space-between;
+    border-radius: 30px;
+    gap: 10px;
+    /* space between input and button */
+    background-color: #f0f0f0;
+    padding-left: 20px;
+    margin-bottom: 25px;
+    border: 2px solid rgba(0, 0, 0, 0.4);
+}
+
+
+/* Task input field styling */
+#inputbox-todo {
+    flex: 1;
+    /* makes input take available space */
+    padding: 10px;
+    width: 80%;
+    border: none;
+    background: transparent;
+    outline: none;
+    /* removes default focus border */
+    font-size: 14px;
+}
+
+/* Add button styling */
+#add-btn {
+    padding: 10px 15px;
+    cursor: pointer;
+    width: 80px;
+    height: 40px;
+    border: none;
+    background-color: rgb(247, 117, 18);
+    color: white;
+    border-radius: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+}
+
+/* The <ul> that holds all the task <li> items */
+#list-container {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+}
+
+/* Style for each to-do list item */
+ul li {
+
+    display: flex;
+    /* Places text, stars, and delete button in one row */
+    flex-wrap: wrap;
+    align-items: flex-start;
+    /* Align items to the top instead of vertical center
+       so long multi-line text looks cleaner */
+
+    list-style: none;
+    /* removes default bullet points */
+
+    font-size: 18px;
+    background-color: white;
+    border-bottom: 2px solid orange;
+    border-radius: 10px;
+    padding: 12px 12px 12px 50px;
+    /* Padding order: top right bottom left
+       Extra left space leaves room for checkbox icon */
+
+    cursor: pointer;
+    /* shows pointer when hovering */
+    margin-top: 5px;
+    position: relative;
+    /* Needed for positioning the ::before checkbox icon */
+
+    text-transform: capitalize;
+    /* Capitalize first letter of each task */
+
+    word-break: break-word;
+    /* Prevents very long words/text from overflowing */
+
+    gap: 10px;
+    /* Adds spacing between task text, stars, and delete button */
+}
+
+/* Add custom icon before each list item */
+ul li::before {
+    content: "";
+    /* required to display pseudo-element */
+    position: absolute;
+
+    /* size of the icon */
+    height: 22px;
+    width: 22px;
+
+    border-radius: 50%;
+    /* makes it circular */
+
+    /* unchecked icon */
+    background-image: url(../images/uncheckedToDoList.png);
+    background-color: rgb(226, 255, 3);
+    background-size: cover;
+    background-position: center;
+
+    /* position icon to the left of text */
+    left: 8px;
+    top: 18px;
+}
+
+/*Change icon when task is checked */
+ul li.checked::before {
+    background-image: url(../images/checkedToDoList.png);
+}
+
+
+/* Well done image — hidden by default */
+.wellDone-img {
+    display: none;
+
+    /* remove position absolute — let it flow naturally */
+    width: 80px;
+    height: auto;
+
+    /* sit below the task content */
+    margin-top: 8px;
+    margin-left: auto;
+    margin-right: auto;
+
+    /* center it */
+    justify-content: center;
+
+    z-index: 1;
+    pointer-events: none;
+
+    /* smooth pop-in */
+    animation: popIn 2.5s ease;
+}
+
+@keyframes popIn {
+    0% {
+        background-color: rgb(229, 255, 0);
+        
+    }
+
+    /*25% {
+        background-color: yellow;
+       
+    }*/
+
+    50% {
+        background-color: rgb(250, 3, 196);
+        
+        transform: scale(1.25);
+    }
+
+    /*75% {
+        background-color: green;
+       
+        transform: scale(1.5);
+    }*/
+
+    100% {
+        background-color: rgb(255, 255, 0);
+       
+    }
+}
+
+
+
+/* Task label — grows to fill the row; wraps long text instead of overflowing */
+ul li .task-text {
+    flex: 1 1 auto;
+    min-width: 0;
+    white-space: normal;
+    word-break: normal;
+    overflow-wrap: break-word;
+}
+
+/* Style when a task is marked as completed */
+ul li.checked .task-text {
+    text-decoration: line-through;
+    color: #888;
+}
+
+
+
+/* Style for the gray stars after each task */
+ul li .task-stars {
+    display: inline-block;
+    vertical-align: middle;
+
+    font-size: 22px;
+
+    margin-left: auto;
+
+    gap: 2px;
+
+    flex-shrink: 0;
+
+
+}
+
+/* Default (unrated) star — muted grey, clickable */
+ul li .task-stars span {
+    color: #a79494;
+    cursor: pointer;
+    display: inline-block;
+
+}
+
+/* Selected star — orange with a gold glow (class added by JS on click) */
+ul li .task-stars span.active-star {
+    color: rgb(255, 111, 0);
+    transform: scale(1.1);
+    text-shadow: 0 0 8px rgba(255, 215, 0, 0.8);
+    /* gold glow effect */
+}
+
+/* Style for the delete button inside each list item */
+
+ul li .delete-btn {
+
+    flex-shrink: 0;
+
+    width: 36px;
+    height: 36px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+    color: #555;
+    font-size: 24px;
+    cursor: pointer;
+    z-index: 2;
+
+
+}
+
+/* Hover effect for the delete button */
+ul li .delete-btn:hover {
+    background-color: #f0f0f0;
+    /* light grey background on hover */
+    color: orangered;
+    /* changes icon color to red on hover */
+}
+
+
+
+
+
+/*++++++++++++++++++++++++++++++++++++++++++*/
+
+/*=======================================
+        time and weather
+========================================*/
 .time-weather {
     background: rgba(255, 255, 255, 0.1);
     /* Gradient background */
@@ -287,6 +617,7 @@ main {
 }
 
 
+/* Shared layout for the large date and time read-outs (centered, fixed height) */
 .time-session,
 .date-session {
 
@@ -302,18 +633,22 @@ main {
     box-sizing: border-box;
 }
 
+/* Date text — slightly off-white, with a soft shadow for legibility on pale scenes */
 .date-session {
     color: #eafff6;
     text-shadow: 0 1px 3px rgba(0, 0, 0, 0.6);
 }
 
+/* Time text — pure white, same shadow treatment */
 .time-session {
     color: white;
     text-shadow: 0 1px 3px rgba(0, 0, 0, 0.6);
 }
 
 
-/*++++++++++++++++++++++++++++++++++++++++++++++++++ Weather API styling */
+/*=============================================
+          Weather API styling 
+==============================================*/
 /* Main container for the weather app */
 .weather-container {
     width: 100%;
@@ -443,6 +778,7 @@ main {
 
 }
 
+/* The close (×) icon, pinned to the top-right of the weather panel */
 .weather-info i {
     position: absolute;
     top: 50px;
@@ -450,6 +786,7 @@ main {
     font-size: 10px;
 }
 
+/* Centered block holding the icon, temperature, description, and city */
 .weather-box {
     text-align: center;
     /* Center text */
@@ -557,323 +894,25 @@ main {
 }
 
 
-/*++++++++++++++++++++++++++++++++++++++++++++++++++ To-do app card styling */
-/* Main container setup */
-/*-------------------  header*/
-/* Header styling with icon alignment */
-header h1 {
-    display: flex;
-    justify-content: center;
-    /* centers horizontally */
-    align-items: center;
-    /* aligns text and image */
-    gap: 10px;
-    /* space between text and image */
-    text-align: center;
-    color: rgb(246, 244, 242);
-    margin-top: 60px;
-    font-family: 'Alegreya';
-    font-size: 5rem;
-}
-
-/* Icon size */
-header h1 img {
-    width: 30px;
-    height: 30px;
-}
-
-.to-do-title h1 {
-    font-family: 'Alegreya', serif;
-}
-
-/* To-do app card: white panel with rounded corners, shadow, and centered layout */
-.todo-app {
-    width: 100%;
-    max-width: 850px;
-    min-height: 400px;
-    background-color: rgba(255, 255, 255, 0.9);
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.9);
-    padding: 40px;
-    margin: auto;
-    color: black;
-    margin-top: 30px;
-}
-
-/*tasks counter*/
-#task-counter {
-    text-align: right;
-    color: #595959;
-    font-size: 14px;
-    margin-bottom: 8px;
-    font-weight: 600;
-}
-
-/* Input + button container (same row using flexbox) */
-.todo-app .todo-input-container {
-    display: flex;
-    /* put elements in one line */
-    align-items: center;
-    /* vertically center items */
-    justify-content: space-between;
-    border-radius: 30px;
-    gap: 10px;
-    /* space between input and button */
-    background-color: #f0f0f0;
-    padding-left: 20px;
-    margin-bottom: 25px;
-    border: 2px solid rgba(0, 0, 0, 0.4);
-}
-
-
-/* Task input field styling */
-#inputbox-todo {
-    flex: 1;
-    /* makes input take available space */
-    padding: 10px;
-    width: 80%;
-    border: none;
-    background: transparent;
-    outline: none;
-    /* removes default focus border */
-    font-size: 14px;
-}
-
-/* Add button styling */
-#add-btn {
-    padding: 10px 15px;
-    cursor: pointer;
-    width: 80px;
-    height: 40px;
-    border: none;
-    background-color: rgb(247, 117, 18);
-    color: white;
-    border-radius: 25px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 16px;
-}
-
-#list-container {
-    width: 100%;
-    max-width: 100%;
-    min-width: 0;
-}
-
-/* Style for each to-do list item */
-ul li {
-
-    display: flex;
-    /* Places text, stars, and delete button in one row */
-    flex-wrap: wrap;
-    align-items: flex-start;
-    /* Align items to the top instead of vertical center
-       so long multi-line text looks cleaner */
-
-    list-style: none;
-    /* removes default bullet points */
-
-    font-size: 18px;
-    background-color: white;
-    border-bottom: 2px solid orange;
-    border-radius: 10px;
-    padding: 12px 12px 12px 50px;
-    /* Padding order: top right bottom left
-       Extra left space leaves room for checkbox icon */
-
-    cursor: pointer;
-    /* shows pointer when hovering */
-    margin-top: 5px;
-    position: relative;
-    /* Needed for positioning the ::before checkbox icon */
-
-    text-transform: capitalize;
-    /* Capitalize first letter of each task */
-
-    word-break: break-word;
-    /* Prevents very long words/text from overflowing */
-
-    gap: 10px;
-    /* Adds spacing between task text, stars, and delete button */
-}
-
-/* Add custom icon before each list item */
-ul li::before {
-    content: "";
-    /* required to display pseudo-element */
-    position: absolute;
-
-    /* size of the icon */
-    height: 22px;
-    width: 22px;
-
-    border-radius: 50%;
-    /* makes it circular */
-
-    /* unchecked icon */
-    background-image: url(../images/uncheckedToDoList.png);
-    background-color: rgb(226, 255, 3);
-    background-size: cover;
-    background-position: center;
-
-    /* position icon to the left of text */
-    left: 8px;
-    top: 18px;
-}
-
-/*Change icon when task is checked */
-ul li.checked::before {
-    background-image: url(../images/checkedToDoList.png);
-}
-
-
-/* Well done image — hidden by default */
-.wellDone-img {
-    display: none;
-
-    /* remove position absolute — let it flow naturally */
-    width: 80px;
-    height: auto;
-
-    /* sit below the task content */
-    margin-top: 8px;
-    margin-left: auto;
-    margin-right: auto;
-
-    /* center it */
-    justify-content: center;
-
-    z-index: 1;
-    pointer-events: none;
-
-    /* smooth pop-in */
-    animation: popIn 2s ease;
-}
-
-@keyframes popIn {
-    0% {
-        background-color: rgb(229, 255, 0);
-        
-    }
-
-    /*25% {
-        background-color: yellow;
-       
-    }*/
-
-    50% {
-        background-color: rgb(250, 3, 196);
-        
-        transform: scale(1.5);
-    }
-
-    /*75% {
-        background-color: green;
-       
-        transform: scale(1.5);
-    }*/
-
-    100% {
-        background-color: rgb(255, 255, 0);
-       
-    }
-}
-
-
-
-ul li .task-text {
-    flex: 1 1 auto;
-    min-width: 0;
-    white-space: normal;
-    word-break: normal;
-    overflow-wrap: break-word;
-}
-
-/* Style when a task is marked as completed */
-ul li.checked .task-text {
-    text-decoration: line-through;
-    color: #888;
-}
-
-
-
-/* Style for the gray stars after each task */
-ul li .task-stars {
-    display: inline-block;
-    vertical-align: middle;
-
-    font-size: 22px;
-
-    margin-left: auto;
-
-    gap: 2px;
-
-    flex-shrink: 0;
-
-
-}
-
-ul li .task-stars span {
-    color: #a79494;
-    cursor: pointer;
-    display: inline-block;
-
-}
-
-ul li .task-stars span.active-star {
-    color: rgb(255, 111, 0);
-    transform: scale(1.1);
-    text-shadow: 0 0 8px rgba(255, 215, 0, 0.8);
-    /* gold glow effect */
-}
-
-/* Style for the delete button inside each list item */
-
-ul li .delete-btn {
-
-    flex-shrink: 0;
-
-    width: 36px;
-    height: 36px;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    border-radius: 50%;
-    color: #555;
-    font-size: 24px;
-    cursor: pointer;
-    z-index: 2;
-
-
-}
-
-/* Hover effect for the delete button */
-ul li .delete-btn:hover {
-    background-color: #f0f0f0;
-    /* light grey background on hover */
-    color: orangered;
-    /* changes icon color to red on hover */
-}
-
 /*===========================================================
               For different screen size
 =============================================================*/
 /* Apply these styles only when screen width is 500px or smaller */
 @media (max-width: 500px) {
-    
+
+    /* Tighten the spacing between the top control buttons */
     .controls {
         gap: 6px;
     }
 
+    /* Shrink the round icon buttons */
     #click,
     #accentBtn,
     #textBtn {
         width: 42px;
     }
 
+    /* Shrink the height + text of every control button */
     #click,
     #changeBackground,
     #accentBtn,
@@ -908,22 +947,26 @@ ul li .delete-btn:hover {
         max-width: 350px;
     }
 
+    /* Let task contents wrap onto multiple lines on narrow screens */
     ul li {
         flex-wrap: wrap;
         margin-right: 15px;
     }
 
+    /* Task text takes the full row so stars/delete drop below it */
     ul li .task-text {
         flex: 1 1 100%;
         min-width: 0;
     }
 
+    /* Smaller stars to fit the narrow layout */
     ul li .task-stars {
         margin-right: 0;
         width: auto;
         font-size: 12px;
     }
 
+    /* Push the delete button to the far right of its row */
     ul li .delete-btn {
         margin-left: auto;
     }

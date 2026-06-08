@@ -1,12 +1,14 @@
 /* jshint esversion: 9 */
 
 // ++++++++++++++++++++++++++++++++Script for To-do List App with Weather API and time+++
-const apiKey = 'f56768d8967f3a3fddcf238efff96c78';//APIkey
-const changeBtn = document.getElementById('changeBackground');
+const apiKey = 'f56768d8967f3a3fddcf238efff96c78';// OpenWeatherMap API key
+const changeBtn = document.getElementById('changeBackground'); // 🏞️ scene-picker button
 
 //++++++++++++++++++top buttons++++++++++++++
 
+// The main toggle button that shows/hides the row of customization buttons
 const clickBtn = document.getElementById('click');
+// All the buttons that are revealed/hidden by clickBtn
 const toggleBtns = [
     document.getElementById('changeBackground'),
     document.getElementById('accentBtn'),
@@ -14,23 +16,29 @@ const toggleBtns = [
     document.getElementById('brightnessBtn'),
 ];
 
-let menuOpen = false;
+let menuOpen = false; // tracks whether the toggle button row is currently shown
 
+// Show or hide the customization buttons each time the main button is clicked
 clickBtn.addEventListener('click', function () {
     menuOpen = !menuOpen;
     toggleBtns.forEach(btn => {
+        // 'flex' to reveal, 'none' to hide
         btn.style.display = menuOpen ? 'flex' : 'none';
     });
 });
 
 // Colour apply helpers
+
+// Apply the chosen accent colour to the add button, task borders, and active stars
 function applyAccentColor(color) {
-    document.documentElement.style.setProperty('--accent-color', color);
+
     document.querySelectorAll('#add-btn').forEach(el => el.style.backgroundColor = color);
     document.querySelectorAll('ul li').forEach(li => li.style.borderBottomColor = color);
     document.querySelectorAll('ul li .task-stars span.active-star').forEach(s => s.style.color = color);
 }
 
+// Apply the chosen text colour to the header, date/time, and weather text;
+// also recolours the to-do panel background
 function applyTextColor(color) {
     document.querySelectorAll('header h1, .date-session, .time-session, .weather-container, .weather-box, .weather-details').forEach(el => {
         el.style.color = color;
@@ -38,6 +46,7 @@ function applyTextColor(color) {
     document.querySelectorAll('.todo-app').forEach(s => s.style.backgroundColor = color);
 }
 
+// Hide all three customization popups (accent, text, and scene pickers)
 function closeColorPopups() {
     document.getElementById('accentPopup').style.display = 'none';
     document.getElementById('textPopup').style.display = 'none';
@@ -49,7 +58,7 @@ document.getElementById('accentBtn').addEventListener('click', function (e) {
     e.stopPropagation();
     const popup = document.getElementById('accentPopup');
     const isOpen = popup.style.display === 'flex';
-    closeColorPopups();
+    closeColorPopups();    
     popup.style.display = isOpen ? 'none' : 'flex';
 });
 
@@ -176,9 +185,6 @@ changeBtn.addEventListener('click', function (e) {
     closeColorPopups();
     popup.style.display = isOpen ? 'none' : 'flex';
 
-    changeBtn.classList.remove('clicked');
-    void changeBtn.offsetWidth;
-    changeBtn.classList.add('clicked');
 });
 
 // Pick a scene from the popup grid
@@ -191,7 +197,252 @@ document.getElementById('sceneSwatches').addEventListener('click', function (e) 
 
 // Restore the previously chosen scene on load
 applyScene(localStorage.getItem('scene') || 'dawn');
-//+++++++++++++++++++++++++++Script for date+++++++++++++++++++++++++
+
+
+
+
+
+//++++++++++++++++++++++++++++++
+// ======================================================
+//    To-do app functionality
+// ========================================================
+
+// Get the input field element (where user types a task)
+const todoInput = document.getElementById('inputbox-todo');
+
+// Get the container (ul) where tasks will be displayed
+const listContainer = document.getElementById('list-container');
+
+// Function to add a new to-do item to the list
+function addTodo() {
+
+    // Check if input is empty or only spaces — show warning and stop
+    if (todoInput.value.trim() === '') {
+        alert('Please enter a task!');
+        return;
+    }
+
+    // Create a new list item <li> to hold the task
+    let li = document.createElement('li');
+    // Create a dedicated, tappable checkbox button for marking task complete
+
+
+    // 1.Create a <span> to hold the task text
+    let taskText = document.createElement('span');
+    taskText.className = 'task-text';
+    taskText.innerText = todoInput.value;
+
+    // Add the task text span into the list item
+    li.appendChild(taskText);
+
+
+    //2. Create a star rating widget (5 stars) for the task
+    let starsSpan = document.createElement('span');
+    starsSpan.className = 'task-stars';
+    // Each star has a data-value attribute used to determine the rating
+    starsSpan.innerHTML = `
+           <span data-value="1">★</span>
+           <span data-value="2">★</span>
+           <span data-value="3">★</span>
+           <span data-value="4">★</span>
+           <span data-value="5">★</span>
+         `;
+    li.appendChild(starsSpan);
+
+    //3. Create the delete (×) button for removing the task
+    let deleteSpan = document.createElement('span');
+    deleteSpan.className = 'delete-btn';
+    deleteSpan.textContent = '\u00d7'; // × character
+    li.appendChild(deleteSpan);
+
+
+    //4.Create well done image — hidden by default---This for insert img --keep for infuture
+    /*let wellDoneImg = document.createElement('img');
+    wellDoneImg.src = 'assets/images/wellDone.gif'; 
+    wellDoneImg.className = 'wellDone-img';
+    li.appendChild(wellDoneImg);*/
+
+    // Create well done badge — hidden by default
+    let wellDoneImg = document.createElement('div');
+    wellDoneImg.className = 'wellDone-img';
+    wellDoneImg.textContent = 'You finish the task! 👏👏👏Well Done!🎉';
+
+    // Make it sit on its own row below the task
+    wellDoneImg.style.flexBasis = '100%';  // ← takes full width, forces new line
+    wellDoneImg.style.textAlign = 'center';
+
+    li.appendChild(wellDoneImg);
+
+    // Add new task at the top of the list
+    listContainer.insertBefore(li, listContainer.firstChild);
+
+    // Add the list item to the visible task list
+    //listContainer.appendChild(li);
+
+
+    // Clear the input field after the task is added
+    todoInput.value = '';
+
+    // Save the updated list to localStorage so it persists after refresh
+    saveData();
+    // Refresh the task counter display (remaining/total)
+    updateCounter();
+}
+
+// Allow user to add a task by pressing Enter instead of clicking the Add button
+todoInput.addEventListener('keydown', e => { if (e.key === 'Enter') addTodo(); });
+
+
+// Single click listener on the list container handles all interactions:
+// star rating, delete button, and task completion toggle
+listContainer.addEventListener('click', function (e) {
+
+    //------------------stars ---------------------
+    // Check if a star was clicked (parent element has class 'task-stars')
+    if (e.target.parentElement && e.target.parentElement.classList.contains('task-stars')) {
+        const starsBox = e.target.parentElement;
+        // Get the star value (1–5) from the clicked star's data attribute
+        const rating = Number(e.target.dataset.value);
+
+        const allStars = starsBox.querySelectorAll('span');
+
+        // Highlight stars up to the selected rating, remove highlight from the rest
+        allStars.forEach(function (star) {
+            if (Number(star.dataset.value) <= rating) {
+                star.classList.add('active-star');
+            } else {
+                star.classList.remove('active-star');
+            }
+        });
+
+        // Save updated star state to localStorage
+        saveData();
+        return;
+    }
+
+    //---------------------------delete button------------------------
+    // If the delete (×) button was clicked, remove the parent <li>
+    if (e.target.classList.contains('delete-btn')) {
+        e.target.parentElement.remove();
+        saveData();
+        // Refresh the task counter display (remaining/total)
+        updateCounter();
+        return;
+    }
+
+
+    /*==================================== 
+     checked button
+    =====================================*/
+    // Find the nearest <li> ancestor of the clicked element
+    const li = e.target.closest('li');
+    if (!li) return;
+
+    //Get the bounding box of the list item
+    const rect = li.getBoundingClientRect();
+
+    //Calculate how far from the left edge of the <li> the click happened
+    const clickX = e.clientX - rect.left;
+
+    // Only toggle 'checked' if the click was within the leftmost 40px (checkbox icon area)
+    if (clickX <= 40) {
+        li.classList.toggle('checked');
+
+
+        //===============================================
+        //     Show "well done" after finish the task
+        //===============================================
+        // Get the well done image inside this specific li
+        const wellDoneImg = li.querySelector('.wellDone-img');
+
+        // If task is now checked — show the image then hide it after 2.5 seconds
+        if (li.classList.contains('checked')) {
+            wellDoneImg.style.display = 'block';
+            wellDoneImg.style.animation = 'popIn 0.4s ease';
+
+            // Hide image after 2.5 seconds
+            setTimeout(() => {
+                wellDoneImg.style.display = 'none';
+                //------------------sort the tasks: unclick tasks are on the top
+                sortTasks();
+            }, 2500);
+
+        } else {
+            // Task unchecked — hide image immediately
+            wellDoneImg.style.display = 'none';
+            //------------------sort the tasks: unclick tasks are on the top
+            sortTasks();
+        }
+
+
+        // Save the updated list to localStorage
+        saveData();
+        // Refresh the task counter display (remaining/total)
+        updateCounter();
+    }
+    });
+
+/*====================
+     Sort tasks
+    =====================*/
+// Sort tasks so unchecked stay on top, checked go to the bottom
+function sortTasks() {
+    // Get all current li items as an array
+    const tasks = Array.from(listContainer.querySelectorAll('li'));
+
+    // Separate into two groups
+    const unchecked = tasks.filter(li => !li.classList.contains('checked'));
+    const checked = tasks.filter(li => li.classList.contains('checked'));
+
+    // Put unchecked first, then checked at the bottom
+    [...unchecked, ...checked].forEach(li => listContainer.appendChild(li));
+
+    // Save the new order to localStorage
+    saveData();
+}
+
+
+/*===========================================
+    Tasks counter
+    =====================================*/
+function updateCounter() {
+    const all = listContainer.querySelectorAll('li');
+    const unchecked = listContainer.querySelectorAll('li:not(.checked)');
+    document.getElementById('total-tasks').textContent = all.length;
+    document.getElementById('remaining-tasks').textContent = unchecked.length;
+}
+
+// Function to save the current list HTML to localStorage
+function saveData() {
+    // Store the full innerHTML so tasks, stars, and checked state are all preserved
+    localStorage.setItem('data', listContainer.innerHTML);
+}
+
+// Function to restore saved tasks from localStorage on page load
+function showTask() {
+    const savedData = localStorage.getItem('data');
+
+    // If there is saved data, inject it back into the list container
+    if (savedData) {
+        listContainer.innerHTML = savedData;
+
+        // Refresh the task counter display (remaining/total)
+        updateCounter();
+        // welldone is hidden
+        listContainer.querySelectorAll('.wellDone-img').forEach(img => {
+            img.style.display = 'none';
+        });
+    }
+}
+
+// Restore tasks from localStorage when the page first loads
+showTask();
+
+//++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+//===================================================
+//               Script for date
+//===================================================
 
 // Get the HTML elements that display day, month, and year
 let day = document.getElementById("day");
@@ -209,7 +460,9 @@ setInterval(() => {
     year.innerText = currentDate.getFullYear();
 }, 1000);
 
-//++++++++++++++++++++++++++Script for time+++++++++++++++++++++++++
+//=================================
+//             Script for time
+// ====================================
 
 // Get the HTML elements that display hours, minutes, and seconds
 let hrs = document.getElementById("hrs");
@@ -228,8 +481,9 @@ setInterval(() => {
 }, 1000);
 
 
-// ++++++++++++++++++++++   Script for  Weather API  +++
-
+// =============================================
+//              Script for  Weather API  
+//===========================================
 // Get references to weather-related DOM elements used across multiple functions
 let weatherContainer = document.querySelector('.weather-container');
 
@@ -259,7 +513,7 @@ async function checkWeather() {
         // Convert the response to a JavaScript object
         const data = await response.json();
         console.log(data);
-        // Expand the weather container height to show all weather info
+        // Expand the weather container height to show all weather info for testing
 
         let weatherInfo = document.querySelector('.weather-info');
 
@@ -314,7 +568,9 @@ function displayWeather(data) {
 }
 
 
-/*--------------------------- Local weather----------*/
+//========================================
+//               Local weather
+// ======================================
 
 // Automatically detect the user's city when the page loads
 async function autoDetectCity() {
@@ -391,236 +647,6 @@ async function getLocationByIP() {
 }
 
 
-//++++++++++++++++++++++++++++++ To-do app functionality+++++++++++++++++++++
-
-// Get the input field element (where user types a task)
-const todoInput = document.getElementById('inputbox-todo');
-
-// Get the container (ul) where tasks will be displayed
-const listContainer = document.getElementById('list-container');
-
-// Function to add a new to-do item to the list
-function addTodo() {
-
-    // Check if input is empty or only spaces — show warning and stop
-    if (todoInput.value.trim() === '') {
-        alert('Please enter a task!');
-        return;
-    }
-
-    // Create a new list item <li> to hold the task
-    let li = document.createElement('li');
-    // Create a dedicated, tappable checkbox button for marking task complete
-
-
-    // Create a <span> to hold the task text
-    let taskText = document.createElement('span');
-    taskText.className = 'task-text';
-    taskText.innerText = todoInput.value;
-
-    // Add the task text span into the list item
-    li.appendChild(taskText);
-
-
-    // Create a star rating widget (5 stars) for the task
-    let starsSpan = document.createElement('span');
-    starsSpan.className = 'task-stars';
-    // Each star has a data-value attribute used to determine the rating
-    starsSpan.innerHTML = `
-           <span data-value="1">★</span>
-           <span data-value="2">★</span>
-           <span data-value="3">★</span>
-           <span data-value="4">★</span>
-           <span data-value="5">★</span>
-         `;
-    li.appendChild(starsSpan);
-
-    // Create the delete (×) button for removing the task
-    let deleteSpan = document.createElement('span');
-    deleteSpan.className = 'delete-btn';
-    deleteSpan.textContent = '\u00d7'; // × character
-    li.appendChild(deleteSpan);
-
-
-    /* Create well done image — hidden by default---This for insert img --keep for infuture*/
-    /*let wellDoneImg = document.createElement('img');
-    wellDoneImg.src = 'assets/images/wellDone.gif'; 
-    wellDoneImg.className = 'wellDone-img';
-    li.appendChild(wellDoneImg);*/
-
-    // Create well done badge — hidden by default
-    let wellDoneImg = document.createElement('div');
-    wellDoneImg.className = 'wellDone-img';
-    wellDoneImg.textContent = 'You finish the task! 👏👏👏Well Done!🎉';
-
-    // Make it sit on its own row below the task
-    wellDoneImg.style.flexBasis = '100%';  // ← takes full width, forces new line
-    wellDoneImg.style.textAlign = 'center';
-
-    li.appendChild(wellDoneImg);
-
-    // Add new task at the top of the list
-    listContainer.insertBefore(li, listContainer.firstChild);
-
-    // Add the list item to the visible task list
-    //listContainer.appendChild(li);
-
-
-    // Clear the input field after the task is added
-    todoInput.value = '';
-
-    // Save the updated list to localStorage so it persists after refresh
-    saveData();
-    // Refresh the task counter display (remaining/total)
-    updateCounter();
-}
-
-// Allow user to add a task by pressing Enter instead of clicking the Add button
-todoInput.addEventListener('keydown', e => { if (e.key === 'Enter') addTodo(); });
-
-
-// Single click listener on the list container handles all interactions:
-// star rating, delete button, and task completion toggle
-listContainer.addEventListener('click', function (e) {
-
-    //------------------stars ---------------------
-    // Check if a star was clicked (parent element has class 'task-stars')
-    if (e.target.parentElement && e.target.parentElement.classList.contains('task-stars')) {
-        const starsBox = e.target.parentElement;
-        // Get the star value (1–5) from the clicked star's data attribute
-        const rating = Number(e.target.dataset.value);
-
-        const allStars = starsBox.querySelectorAll('span');
-
-        // Highlight stars up to the selected rating, remove highlight from the rest
-        allStars.forEach(function (star) {
-            if (Number(star.dataset.value) <= rating) {
-                star.classList.add('active-star');
-            } else {
-                star.classList.remove('active-star');
-            }
-        });
-
-        // Save updated star state to localStorage
-        saveData();
-        return;
-    }
-
-    //---------------------------delete button------------------------
-    // If the delete (×) button was clicked, remove the parent <li>
-    if (e.target.classList.contains('delete-btn')) {
-        e.target.parentElement.remove();
-        saveData();
-        // Refresh the task counter display (remaining/total)
-        updateCounter();
-        return;
-    }
-
-
-    /*====================== 
-     checked button
-    ========================*/
-    // Find the nearest <li> ancestor of the clicked element
-    const li = e.target.closest('li');
-    if (!li) return;
-
-    //Get the bounding box of the list item
-    const rect = li.getBoundingClientRect();
-
-    //Calculate how far from the left edge of the <li> the click happened
-    const clickX = e.clientX - rect.left;
-
-    // Only toggle 'checked' if the click was within the leftmost 40px (checkbox icon area)
-    if (clickX <= 40) {
-        li.classList.toggle('checked');
-
-
-        //------------------------ Show "well done" after finish the task
-        // Get the well done image inside this specific li
-        const wellDoneImg = li.querySelector('.wellDone-img');
-
-        // If task is now checked — show the image then hide it after 1.5 seconds
-        if (li.classList.contains('checked')) {
-            wellDoneImg.style.display = 'block';
-            wellDoneImg.style.animation = 'popIn 0.4s ease';
-
-            // Hide image after 1.5 seconds
-            setTimeout(() => {
-                wellDoneImg.style.display = 'none';
-                //------------------sort the tasks: unclick tasks are on the top
-                sortTasks();
-            }, 2000);
-
-        } else {
-            // Task unchecked — hide image immediately
-            wellDoneImg.style.display = 'none';
-            //------------------sort the tasks: unclick tasks are on the top
-            sortTasks();
-        }
-
-
-        // Save the updated list to localStorage
-        saveData();
-        // Refresh the task counter display (remaining/total)
-        updateCounter();
-    }
-    });
-
-/*====================
-     Sort tasks
-    =====================*/
-// Sort tasks so unchecked stay on top, checked go to the bottom
-function sortTasks() {
-    // Get all current li items as an array
-    const tasks = Array.from(listContainer.querySelectorAll('li'));
-
-    // Separate into two groups
-    const unchecked = tasks.filter(li => !li.classList.contains('checked'));
-    const checked = tasks.filter(li => li.classList.contains('checked'));
-
-    // Put unchecked first, then checked at the bottom
-    [...unchecked, ...checked].forEach(li => listContainer.appendChild(li));
-
-    // Save the new order to localStorage
-    saveData();
-}
-
-
-/*====================
-    Tasks counter
-    =====================*/
-function updateCounter() {
-    const all = listContainer.querySelectorAll('li');
-    const unchecked = listContainer.querySelectorAll('li:not(.checked)');
-    document.getElementById('total-tasks').textContent = all.length;
-    document.getElementById('remaining-tasks').textContent = unchecked.length;
-}
-
-// Function to save the current list HTML to localStorage
-function saveData() {
-    // Store the full innerHTML so tasks, stars, and checked state are all preserved
-    localStorage.setItem('data', listContainer.innerHTML);
-}
-
-// Function to restore saved tasks from localStorage on page load
-function showTask() {
-    const savedData = localStorage.getItem('data');
-
-    // If there is saved data, inject it back into the list container
-    if (savedData) {
-        listContainer.innerHTML = savedData;
-
-        // Refresh the task counter display (remaining/total)
-        updateCounter();
-        // welldone is hidden
-        listContainer.querySelectorAll('.wellDone-img').forEach(img => {
-            img.style.display = 'none';
-        });
-    }
-}
-
-// Restore tasks from localStorage when the page first loads
-showTask();
 
 // When the page is ready, auto-detect the user's city and display local weather
 window.addEventListener("load", autoDetectCity);
