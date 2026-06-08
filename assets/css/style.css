@@ -50,8 +50,9 @@ body {
     justify-content: center;
     align-items: center;
     cursor: pointer;
-    -webkit-backdrop-filter: blur(10px);
-    backdrop-filter: blur(10px);
+    /* Frosted-glass effect: blur whatever sits behind the button */
+    -webkit-backdrop-filter: blur(10px);     /* Safari / older iOS support */
+    backdrop-filter: blur(10px);/*Chrome, Firefox, and Edge*/
     border: 1px solid rgba(255, 255, 255, 0.4);
     color: white;
     font-weight: 700;
@@ -69,9 +70,8 @@ body {
 
 /* Pill buttons with an icon + label (Scene / Light) */
 .pill-btn {
-    display: none;
-    /* shown via JS when the toolbar is open */
-    gap: 7px;
+    display: none;    /* shown via JS when the toolbar is open */
+    gap: 7px;    /* space between the icon and its label */
     padding: 0 18px;
     border-radius: 25px;
     white-space: nowrap;
@@ -86,15 +86,16 @@ body {
     font-size: 15px;
 }
 
+#click {
+    display: flex;
+}
+
 /* Hidden until the "click" button opens the toolbar */
 #accentBtn,
 #textBtn {
     display: none;
 }
 
-#click {
-    display: flex;
-}
 
 /* Applied by JavaScript when clicked */
 #changeBackground.clicked {

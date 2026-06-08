@@ -148,7 +148,10 @@ const scenes = {
     forest: "linear-gradient(160deg, #2f5d4c 0%, #6fa085 100%)",
     dusk:   "linear-gradient(160deg, #463c6b 0%, #7d5c93 60%, #c98a73 100%)",
     desert: "linear-gradient(160deg, #d99a5b 0%, #ecca97 100%)",
-    sea:    "linear-gradient(160deg, #2f8d99 0%, #93d2d8 100%)"
+    sea:    "linear-gradient(160deg, #2f8d99 0%, #93d2d8 100%)",
+    dandelion: 'url("assets/images/background.webp")',
+    rose: 'url("assets/images/rose.webp")',
+   mountain: 'url("assets/images/mountain.webp")',
 };
 
 // Apply a scene gradient as the fixed page background
