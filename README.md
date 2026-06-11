@@ -23,7 +23,7 @@
 - [Limitations & Future Improvements](#limitations--future-improvements)
 - [Colour Palette](#colour-palette)
 - [AI Usage Declaration](#ai-usage-declaration)
-- [Author](#author)
+
 
 ---
 
@@ -156,7 +156,7 @@ Validation screenshots are included in the repository:
 ### Files Analysed
 
 - `assets/js/script.js` — 0 issues
-- `eslint.config.mjs` — 0 issues
+
 
 ### Notes
 
